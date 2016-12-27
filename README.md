@@ -1,5 +1,7 @@
 # React Redux Starter Universal
 
+[![build status](https://travis-ci.org/3axap4eHko/react-starter-universal.svg?branch=master)](https://travis-ci.org/3axap4eHko/react-starter-universal)
+
 ## Installation
 
 ``` bash
