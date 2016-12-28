@@ -3,16 +3,17 @@
 const Path = require('path');
 const {DefinePlugin, optimize} = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ExtractPostCss = new ExtractTextPlugin('css/[name].css');
+const ExtractPostCss = new ExtractTextPlugin('/css/[name].css');
 const Html = require('html-webpack-plugin');
 const Copy = require('copy-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const Offline = require('offline-plugin');
+const WebpackPlugin = require('./webpack.plugin');
+const AppCachePlugin = require('appcache-webpack-plugin');
 
 module.exports = [
     {
         entry: {
-            'server' : Path.resolve(__dirname, './src/app/server.js')
+            'server' : Path.resolve(__dirname, './src/app/server.jsx')
         },
         output: {
             path: Path.join(__dirname, 'build/www'),
@@ -56,12 +57,12 @@ module.exports = [
     {
         entry: {
             'index' : Path.resolve(__dirname, './src/app/client.jsx'),
-            'common': ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'immutable', 'react-snippets', 'reselect', 'react-intl', 'redux-thunk']
+            'common': ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'immutable', 'react-helpful', 'reselect', 'react-intl', 'redux-thunk']
         },
         output: {
             path: Path.join(__dirname, 'build/www'),
-            filename: `./js/[name].js`,
-            chunkFilename: `./js/[id].js`
+            filename: `/js/[name].js`,
+            chunkFilename: `/js/[id].js`
         },
         module: {
             preLoaders: [
@@ -97,15 +98,16 @@ module.exports = [
             new optimize.OccurenceOrderPlugin(),
             new optimize.CommonsChunkPlugin('common', 'js/common.js'),
             ExtractPostCss,
-            new Offline({
-                externals: ['/index.html'],
-                ServiceWorker: {
-                    output: 'js/sw.js',
-                }
+            new AppCachePlugin({
+                settings: ['prefer-offline'],
+                output: 'manifest.appcache'
             }),
             new Html({
                 filename: 'index.html',
                 template: 'src/index.html'
+            }),
+            new WebpackPlugin({
+                clean: ['build', 'cache']
             }),
             new Copy([
                 {from: './src/favicon.ico', to: './'},

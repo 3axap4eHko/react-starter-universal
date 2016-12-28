@@ -3,9 +3,9 @@
 import React from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import offline from 'offline-plugin/runtime';
+//import offline from 'offline-plugin/runtime';
 injectTapEventPlugin();
-offline.install();
+//offline.install();
 import {Router, browserHistory} from 'react-router';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'react-intl';
