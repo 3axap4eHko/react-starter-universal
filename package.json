@@ -1,7 +1,15 @@
 {
   "name": "react-starter-universal",
   "version": "1.0.0",
-  "description": "React Redux Starter Unviersal",
+  "description": "React Redux Starter Unviersal Application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3axap4eHko/react-starter-universal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/3axap4eHko/react-starter-universal/issues"
+  },
+  "homepage": "https://github.com/3axap4eHko/react-starter-universal#readme",
   "scripts": {
     "start-dev": "cross-env NODE_ENV=development && nodemon build/server.js",
     "build-dev": "cross-env NODE_ENV=development webpack --progress --colors --config webpack.dev.config.js",

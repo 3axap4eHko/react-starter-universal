@@ -7,6 +7,7 @@ const ExtractPostCss = new ExtractTextPlugin('/css/[name].css');
 const Html = require('html-webpack-plugin');
 const Copy = require('copy-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const WebpackPlugin = require('./webpack.plugin');
 const AppCachePlugin = require('appcache-webpack-plugin');
 
 module.exports = [
@@ -68,7 +69,7 @@ module.exports = [
                 { test: /\.jsx?$/, loader: 'eslint-loader', exclude: /node_modules/ },
             ],
             loaders: [
-                { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' },
+                { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
                 { test: /\.css$/, loader: ExtractPostCss.extract(['css-loader', 'postcss-loader']) },
                 { test: /\.(svg|jpg|png|gif)$/, loader: 'file-loader', query: { name: 'images/[hash].[ext]' } },
                 { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader', query: { name: 'fonts/[hash].[ext]', limit: 5000, mimetype: 'application/font-woff' } },
@@ -79,6 +80,9 @@ module.exports = [
             extensions: ['', '.js', '.jsx']
         },
         plugins: [
+            new WebpackPlugin({
+                clean: ['build', 'cache']
+            }),
             new DefinePlugin({
                 '__DEV__': JSON.stringify(false),
                 'DEBUG': JSON.stringify(false),

@@ -27,7 +27,7 @@ module.exports = [
                 { test: /\.jsx?$/, loader: 'eslint-loader', exclude: /node_modules/ },
             ],
             loaders: [
-                { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel', query: {cacheDirectory: 'cache'} },
+                { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', query: {cacheDirectory: 'cache'} },
                 { test: /\.css$/, loaders: ['css-loader', 'postcss-loader'] },
                 { test: /\.(svg|jpg|png|gif)$/, loader: 'file-loader', query: { name: 'images/[hash].[ext]' } },
                 { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader', query: { name: 'fonts/[hash].[ext]', limit: 5000, mimetype: 'application/font-woff' } },
@@ -73,6 +73,9 @@ module.exports = [
             extensions: ['', '.js', '.jsx']
         },
         plugins: [
+            new WebpackPlugin({
+                clean: ['build', 'cache']
+            }),
             new DefinePlugin({
                 '__DEV__': JSON.stringify(true),
                 'DEBUG': JSON.stringify(true),
@@ -84,9 +87,6 @@ module.exports = [
             new Html({
                 filename: 'index.html',
                 template: 'src/index.html'
-            }),
-            new WebpackPlugin({
-                clean: ['build', 'cache']
             }),
             new Copy([
                 {from: './src/favicon.ico', to: './'},
