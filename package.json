@@ -13,8 +13,8 @@
     "test": "cross-env NODE_ENV=test karma start karma.conf.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Ivan Zakharchenko <3axap4eHko@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.14.0",
     "immutable": "^3.8.1",
