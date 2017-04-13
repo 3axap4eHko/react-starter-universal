@@ -6,11 +6,14 @@ import {
   STATUS_FAILURE,
   // Namespaces
   NAMESPACE_APP,
+  NAMESPACE_ROUTE,
   // Types
   APP_LOAD,
+  ROUTE_SET,
 } from './../types';
 
 import appLoadAction from './app/load';
+import routeSetAction from './route/set';
 
 function _createProcess(namespace, type, ...args) { // eslint-disable-line no-underscore-dangle
   return {
@@ -52,5 +55,11 @@ export const appLoad = _createAction(
   NAMESPACE_APP,
   APP_LOAD,
   appLoadAction,
+);
+
+export const routeSet = _createAction(
+  NAMESPACE_ROUTE,
+  ROUTE_SET,
+  routeSetAction,
 );
 

@@ -7,9 +7,12 @@ export const STATUS_FAILURE = 'STATUS_FAILURE';
 
 // Generated Namespaces
 export const NAMESPACE_APP = 'app';
+export const NAMESPACE_ROUTE = 'route';
 
 export const NAMESPACES = [
   NAMESPACE_APP,
+  NAMESPACE_ROUTE,
 ];
 // Generated Types
 export const APP_LOAD = 'APP_LOAD';
+export const ROUTE_SET = 'ROUTE_SET';

@@ -2,8 +2,7 @@ require('webpack');
 const Os = require('os');
 const Path = require('path');
 
-const webpackConfig = require('./webpack/webpack.dev.config.js')[1]; // using webpack UI config
-const tempDir = Path.join(Os.tmpdir(), '.karma_test_directory') ;
+const webpackConfig = require('./webpack/development.config.js')[1]; // using webpack UI config
 const isTravis = !!process.env.TRAVIS;
 const singleRun = isTravis;
 const autoWatch = !isTravis;
@@ -12,38 +11,34 @@ const autoWatch = !isTravis;
 //process.env.PHANTOMJS_BIN = process.env.PHANTOMJS_BIN || 'c:\\bin\\phantomjs\\bin\\phantomjs.exe';
 
 module.exports = function (config) {
-    config.set({
-        browsers: [isTravis ? 'ChromeLauncherTravis' : 'ChromeLauncher'],
-        customLaunchers: {
-            ChromeLauncher: {
-                base: 'Chrome',
-                flags: ['--start-maximized', `--user-data-dir=${tempDir}`]
-            },
-            ChromeLauncherTravis: {
-                base: 'Chrome',
-                flags: ['--no-sandbox', '--start-maximized', `--user-data-dir=${tempDir}`]
-            },
-        },
-        frameworks: ['jasmine'],
-        files: [
-            './spec/_bootstrap.js'
-        ],
-        preprocessors: {
-             './spec/_bootstrap.js': ['webpack']
-        },
-        webpack: webpackConfig,
-        webpackMiddleware: {
-            //noInfo: true
-        },
-        plugins: [
-            'karma-chrome-launcher',
-            'karma-webpack',
-            'karma-jasmine'
-        ],
-        colors: true,
-        retryLimit: 10,
-        concurrency: Infinity,
-        singleRun,
-        autoWatch
-    })
+  config.set({
+    browsers: ['ChromeLauncher'],
+    customLaunchers: {
+      ChromeLauncher: {
+        base: 'Chrome',
+        flags: ['--incognito', '--no-sandbox']
+      }
+    },
+    frameworks: ['mocha'],
+    files: [
+      './test/*.jsx'
+    ],
+    preprocessors: {
+      './test/*.jsx': ['webpack', 'sourcemap']
+    },
+    webpack: webpackConfig,
+    webpackMiddleware: {
+      noInfo: true
+    },
+    colors: true,
+    retryLimit: 10,
+    concurrency: Infinity,
+    reporters: ['mocha', 'coverage'],
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    },
+    autoWatch,
+    singleRun,
+  })
 };

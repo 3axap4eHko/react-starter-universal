@@ -26,7 +26,7 @@ module.exports = [
     externals: [nodeExternals()],
     module: {
       rules: [
-        //{ test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader', enforce: 'pre' },
+        { test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader', enforce: 'pre' },
         { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: { cacheDirectory: 'cache' } },
         { test: /\.(svg|jpg|jpeg|png|gif|webp)$/, loader: 'file-loader', options: { name: 'images/[name].[ext]', emitFile: false } },
         { test: /\.(css|woff(2)?|ttf|eot)$/, loader: 'null-loader' },
@@ -46,7 +46,7 @@ module.exports = [
     },
     module: {
       rules: [
-        //{ test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader', enforce: 'pre' },
+        { test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader', enforce: 'pre' },
         { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: { cacheDirectory: 'cache' } },
         { test: /\.css$/, loader: ExtractPostCss.extract({ use: ['css-loader', 'postcss-loader'], publicPath: '/' }) },
         { test: /\.(svg|jpg|png|gif)$/, loader: 'file-loader', options: { name: 'images/[name].[ext]' } },

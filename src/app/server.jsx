@@ -12,7 +12,7 @@ import store from './redux/store';
 const serverDir = Path.dirname(process.argv[1]);
 process.chdir(serverDir);
 
-const serverPort = parseInt(process.argv[2]) || 9090;
+const serverPort = parseInt(process.argv[2], 10) || 9090;
 
 const staticMiddleware = Express.static('www');
 const app = Express();
@@ -21,7 +21,7 @@ const router = Express.Router();
 const indexHTML = Fs.readFileSync('./index.html', { encoding: 'utf8' });
 const excludeExpr = /(\/|\/index\.html)$/;
 
-function staticHandler (req, res, next) {
+function staticHandler(req, res, next) {
   if (excludeExpr.test(req.originalUrl)) {
     next();
   } else {
@@ -29,19 +29,19 @@ function staticHandler (req, res, next) {
   }
 }
 
-function renderFullPage (html, initialState) {
+function renderFullPage(html, initialState) {
   return indexHTML
     .replace('<!--CONTENT-->', html)
     .replace('<!--STATE-->', `<script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>`);
 }
 
-router.get('*', function (req, res) {
+router.get('*', (req, res) => {
   const context = {};
 
   const html = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
-        <App/>
+        <App />
       </StaticRouter>
     </Provider>,
   );
@@ -61,6 +61,6 @@ router.get('*', function (req, res) {
 app.use(staticHandler);
 app.use('/', router);
 
-app.listen(serverPort, function () {
+app.listen(serverPort, () => {
   console.log(`Served from http://localhost:${serverPort}`); // eslint-disable-line no-console
 });
