@@ -1,37 +1,33 @@
-'use strict';
-
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-const {any} = PropTypes;
 
 import '../css/global.css';
 import './App.css';
 
-class App extends Component {
-    static propTypes = {
-        children: any
-    };
+import Home from './Home';
+import About from './About';
 
-    render() {
-        const {children} = this.props;
-        return (
-            <div className="site-wrapper-inner">
-                <div className="cover-container">
-                    <Nav />
-                    {children}
-                    <Footer />
-                </div>
-            </div>
-        );
-    }
-}
+const App = () => {
+  return (
+    <div className="site-wrapper-inner">
+      <div className="cover-container">
+        <Nav />
+        <Route exact path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Footer />
+      </div>
+    </div>
+  );
+};
 
 function mapStateToProps() {
-    return {};
+  return {};
 }
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+//export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

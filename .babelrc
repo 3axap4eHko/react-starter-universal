@@ -1,6 +1,11 @@
 {
   "presets": [
-    "latest",
+    ["env", {
+      "targets": {
+        "node": 6,
+        "browsers": ["last 2 version"]
+      }
+    }],
     "react"
   ],
   "plugins": [

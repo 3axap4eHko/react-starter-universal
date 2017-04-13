@@ -1,27 +1,22 @@
-'use strict';
+/* eslint-disable */
 
-import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-const {any, object, string, oneOfType} = PropTypes;
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
 
-class NavLink extends Component {
-    static contextTypes = {
-        router: object
-    };
-    static propTypes = {
-        to: oneOfType([string, object]),
-        children: any
-    };
-    render() {
-        const {to, children, ...props} = this.props;
-        const {router} = this.context;
-        const isActive = router.isActive(to, true);
-        return (
-            <li className={isActive && 'active'}>
-                <Link to={to} {...props}>{children}</Link>
-            </li>
-        );
-    }
-}
+const NavLink = ({ to, ...rest }) => (
+  <Route
+    path={typeof to === 'object' ? to.pathname : to}
+    exact={true}
+    strict={false}
+    children={({ location, match }) => (
+      <li className={match && 'active'}>
+        <Link
+          to={to}
+          {...rest}
+        />
+      </li>
+    )}
+  />
+);
 
-export default NavLink;
+export default NavLink

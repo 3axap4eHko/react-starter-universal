@@ -1,24 +1,20 @@
-'use strict';
-
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-//import offline from 'offline-plugin/runtime';
 injectTapEventPlugin();
-//offline.install();
-import {Router, browserHistory} from 'react-router';
-import {Provider} from 'react-redux';
-import {IntlProvider} from 'react-intl';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import store from './redux/store';
-import routes from './routes';
+import App from './containers/App';
+
 window.store = store;
 
 render(
-    <IntlProvider locale="en">
-        <Provider store={store}>
-            <Router history={browserHistory} routes={routes} />
-        </Provider>
-    </IntlProvider>,
-    document.getElementById('app')
+    <Provider store={store}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </Provider>,
+  document.getElementById('app')
 );
