@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter, Route } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 
@@ -19,4 +20,4 @@ const App = () => (
     </div>
   </div>
   );
-export default App;
+export default withRouter(connect()(App));
