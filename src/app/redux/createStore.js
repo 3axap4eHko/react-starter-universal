@@ -15,9 +15,17 @@ const loggerMiddleware = createLogger({
 
 const middleware = [
   thunkMiddleware,
-  typeof DEBUG !== 'undefined' && loggerMiddleware, // eslint-disable-line no-undef
+  DEBUG && loggerMiddleware,
 ].filter(Boolean);
 
-const store = createStore(reducers,
+export default function create(initialState) {
+  const store = createStore(reducers,
+    initialState,
     applyMiddleware(...middleware));
-export default store;
+
+  store.dispatchAll = function dispatchAll(actions) {
+    return Promise.all(actions.map(action => store.dispatch(action())));
+  };
+
+  return store;
+}

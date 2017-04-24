@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
 
 import App from './containers/App';
-import store from './redux/store';
+import createStore from './redux/createStore';
+import { appLoad } from './redux/actions';
+import initialState from './redux/states';
 
 const serverDir = Path.dirname(process.argv[1]);
 process.chdir(serverDir);
@@ -29,33 +31,48 @@ function staticHandler(req, res, next) {
   }
 }
 
-function renderFullPage(html, initialState) {
+function renderFullPage(html, state) {
   return indexHTML
     .replace('<!--CONTENT-->', html)
-    .replace('<!--STATE-->', `<script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>`);
+    .replace('<!--STATE-->', `<script> window.__INITIAL_STATE__ = ${JSON.stringify(state)};</script>`);
 }
 
 router.get('*', (req, res) => {
-  const context = {};
+  const store = createStore(initialState);
 
-  const html = renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>,
-  );
+  store.dispatchAll([
+    () => appLoad(),
+  ])
+    .then(() => {
+      const context = {};
 
-  // context.url will contain the URL to redirect to if a <Redirect> was used
-  if (context.url) {
-    res.writeHead(302, {
-      Location: context.url,
+      const html = renderToString(
+        <StaticRouter location={req.url} context={context}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </StaticRouter>,
+      );
+      // context.url will contain the URL to redirect to if a <Redirect> was used
+      if (context.url) {
+        res.writeHead(302, {
+          Location: context.url,
+        });
+        res.end();
+      } else {
+        const finalState = store.getState();
+        res.status(200).send(renderFullPage(html, finalState));
+      }
+    })
+    .catch((error) => {
+      console.error(error); // eslint-disable-line no-console
+      try {
+        res.writeHead(500);
+      } catch (e) {
+        // headers already sent
+      }
+      res.end();
     });
-    res.end();
-  } else {
-    const finalState = store.getState();
-    res.status(200).send(renderFullPage(html, finalState));
-  }
 });
 
 app.use(staticHandler);

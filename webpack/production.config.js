@@ -1,6 +1,6 @@
 
 const Path = require('path');
-const { optimize } = require('webpack');
+const { optimize, HashedModuleIdsPlugin } = require('webpack');
 const merge = require('webpack-merge');
 const AppCachePlugin = require('appcache-webpack-plugin');
 
@@ -25,14 +25,18 @@ module.exports = [
     entry: {
       'index': Path.resolve(__dirname, '../src/app/client.jsx'),
       'common': [
+        'prop-types',
         'react',
         'react-dom',
         'react-router',
+        'react-router-dom',
         'redux',
         'react-redux',
         'react-helpful',
         'react-intl',
-        'redux-thunk'],
+        'redux-thunk',
+        'styled-components',
+      ],
     },
     plugins: [
       new optimize.UglifyJsPlugin({
@@ -42,7 +46,10 @@ module.exports = [
           warnings: false,
         },
       }),
-      new optimize.CommonsChunkPlugin('common', 'js/common.js'),
+      new optimize.CommonsChunkPlugin({
+        name: 'common'
+      }),
+      new HashedModuleIdsPlugin(),
       new AppCachePlugin({
         settings: ['prefer-offline'],
         output: 'manifest.appcache',

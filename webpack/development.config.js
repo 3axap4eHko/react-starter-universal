@@ -1,6 +1,7 @@
 const Path = require('path');
 const merge = require('webpack-merge');
 const baseConfigs = require('./base.config');
+const { NamedModulesPlugin } = require('webpack');
 
 module.exports = [
   {
@@ -14,5 +15,8 @@ module.exports = [
     entry: {
       'index': Path.resolve(__dirname, '../src/app/client.jsx'),
     },
+    plugins: [
+      new NamedModulesPlugin(),
+    ]
   },
 ].map((config, idx) => merge(baseConfigs[idx], config));

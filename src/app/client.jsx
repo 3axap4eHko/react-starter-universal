@@ -3,18 +3,21 @@ import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from './redux/store';
 import App from './containers/App';
+import createStore from './redux/createStore';
 
 injectTapEventPlugin();
 
-window.store = store;
+const store = createStore(window.__INITIAL_STATE__); // eslint-disable-line no-underscore-dangle
+if (DEBUG) {
+  window.store = store;
+}
 
 render(
-  <Provider store={store}>
-    <BrowserRouter>
+  <BrowserRouter>
+    <Provider store={store}>
       <App />
-    </BrowserRouter>
-  </Provider>,
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('app'),
 );
