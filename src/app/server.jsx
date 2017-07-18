@@ -40,9 +40,7 @@ function renderFullPage(html, state) {
 router.get('*', (req, res) => {
   const store = createStore(initialState);
 
-  store.dispatchAll([
-    () => appLoad(),
-  ])
+  store.dispatch(appLoad())
     .then(() => {
       const context = {};
 

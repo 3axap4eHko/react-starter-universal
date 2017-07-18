@@ -5,7 +5,7 @@ function Nav() {
   return (
     <div className="masthead clearfix">
       <div className="inner">
-        <h3 className="masthead-brand">React Redux Starter SPA</h3>
+        <h3 className="masthead-brand">React Redux Starter Universal</h3>
         <nav>
           <ul className="nav masthead-nav">
             <NavLink to="/">Home</NavLink>
