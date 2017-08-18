@@ -1,12 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import { hydrate as render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { Body, Head } from './components/HTML';
 import App from './containers/App';
 import createStore from './redux/createStore';
-
-injectTapEventPlugin();
 
 const store = createStore(window.__INITIAL_STATE__); // eslint-disable-line no-underscore-dangle
 if (DEBUG) {
@@ -16,8 +14,20 @@ if (DEBUG) {
 render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <App/>
     </Provider>
   </BrowserRouter>,
   document.getElementById('app'),
+);
+render(
+  <Provider store={store}>
+    <Head />
+  </Provider>,
+  document.querySelector('head'),
+);
+render(
+  <Provider store={store}>
+    <Body />
+  </Provider>,
+  document.getElementById('scripts'),
 );

@@ -45,7 +45,7 @@ module.exports = [
     },
     module: {
       rules: [
-        { test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader', enforce: 'pre' },
+        //{ test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader', enforce: 'pre' },
         { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: { cacheDirectory: 'cache' } },
         { test: /\.css$/, loader: ExtractPostCss.extract({ use: ['css-loader', 'postcss-loader'], publicPath: '/' }) },
         { test: /\.(svg|jpg|png|gif)$/, loader: 'file-loader', options: { name: 'images/[name].[ext]' } },
@@ -67,10 +67,6 @@ module.exports = [
       }),
       define,
       ExtractPostCss,
-      new Html({
-        filename: 'index.html',
-        template: 'src/index.html',
-      }),
       new Copy([
         { from: './src/favicon.ico', to: './' }
       ]),

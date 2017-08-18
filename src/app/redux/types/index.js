@@ -7,9 +7,13 @@ export const STATUS_FAILURE = 'STATUS_FAILURE';
 
 // Generated Namespaces
 export const NAMESPACE_APP = 'app';
+export const NAMESPACE_TAGS = 'tags';
 
 export const NAMESPACES = [
   NAMESPACE_APP,
+  NAMESPACE_TAGS,
 ];
 // Generated Types
 export const APP_LOAD = 'APP_LOAD';
+export const TAGS_DEL = 'TAGS_DEL';
+export const TAGS_SET = 'TAGS_SET';

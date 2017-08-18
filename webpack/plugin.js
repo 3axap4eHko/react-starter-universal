@@ -1,10 +1,10 @@
 const Del = require('del');
 
-function WebpackPlugin (options) {
+function WebpackPlugin(options) {
   this.options = options;
 }
 
-WebpackPlugin.prototype.apply = function apply (compiler) {
+WebpackPlugin.prototype.apply = function apply(compiler) {
   const { clean, dry } = this.options;
 
   compiler.plugin('run', function (compilation, callback) {
@@ -13,12 +13,18 @@ WebpackPlugin.prototype.apply = function apply (compiler) {
     });
   });
 
+  compiler.plugin('emit', (compilation, callback) => {
+    const chunks = compilation
+      .getStats()
+      .toJson()
+      .chunks
+      .filter(chunk => chunk.names[0] && ((typeof chunk.isInitial !== 'function' && chunk.initial) || chunk.isInitial()));
+    console.log(chunks.files);
+    callback();
+  });
+
   compiler.plugin('compilation', function (compilation) {
-    // move index.html to level upper
-    compilation.plugin('html-webpack-plugin-before-html-processing', function (htmlPluginData, callback) {
-      htmlPluginData.plugin.childCompilationOutputName = '../' + htmlPluginData.plugin.childCompilationOutputName;
-      callback(null, htmlPluginData);
-    });
+
 
   });
 };

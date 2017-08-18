@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helm } from '../components/HTML';
 
 function About() {
   return (
@@ -8,6 +9,9 @@ function About() {
       <p className="lead">
         <a href="https://github.com/3axap4eHko/react-starter-universal" className="btn btn-lg btn-default">Learn more</a>
       </p>
+      <Helm>
+        <title>About</title>
+      </Helm>
     </div>
   );
 }

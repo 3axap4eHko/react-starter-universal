@@ -6,11 +6,16 @@ import {
   STATUS_FAILURE,
   // Namespaces
   NAMESPACE_APP,
+  NAMESPACE_TAGS,
   // Types
   APP_LOAD,
+  TAGS_DEL,
+  TAGS_SET,
 } from './../types';
 
 import appLoadAction from './app/load';
+import tagsDelAction from './tags/del';
+import tagsSetAction from './tags/set';
 
 function _createProcess(namespace, type, ...args) { // eslint-disable-line no-underscore-dangle
   return {
@@ -52,5 +57,17 @@ export const appLoad = _createAction(
   NAMESPACE_APP,
   APP_LOAD,
   appLoadAction,
+);
+
+export const tagsDel = _createAction(
+  NAMESPACE_TAGS,
+  TAGS_DEL,
+  tagsDelAction,
+);
+
+export const tagsSet = _createAction(
+  NAMESPACE_TAGS,
+  TAGS_SET,
+  tagsSetAction,
 );
 
