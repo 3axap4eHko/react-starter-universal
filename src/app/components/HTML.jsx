@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { func, object } from 'prop-types';
-import { connect } from 'react-redux';
-import { GUID } from 'yyf/random';
-import { tagsDel } from '../redux/actions';
-import { NAMESPACE_TAGS, TAGS_SET, STATUS_SUCCESS } from '../redux/types';
+import React, {Component} from 'react';
+import {func, object} from 'prop-types';
+import {renderToStaticMarkup} from 'react-dom/server';
+import {connect} from 'react-redux';
+import {GUID} from 'yyf/random';
+import {tagsDel} from '../redux/actions';
+import {NAMESPACE_TAGS, TAGS_SET, STATUS_SUCCESS} from '../redux/types';
 
 function tagsSetAction(result) {
   return {
@@ -14,88 +15,86 @@ function tagsSetAction(result) {
   };
 }
 
-function getTags(tags, includeTags = []) {
-  return Object
-    .values(tags)
-    .reduce((result, children) => result.concat(children), [])
-    .filter(tag => !includeTags.length || includeTags.includes(tag.type));
-}
-
-const HEAD_TAGS = ['title', 'meta', 'link', 'style'];
-
-function mapStateToProps({ tags, }) {
-  return { tags};
-}
-
-@connect(mapStateToProps)
-export class Head extends Component {
-
-  render() {
-    const { tags } = this.props;
-    return getTags();
-  }
-}
-
-const BODY_TAGS = ['script'];
-
-function mapBodyStateToProps({ tags, ...finalState }) {
-  return {
-    bodyTags: getTags(tags, BODY_TAGS),
-    finalState,
-  };
-}
-
-@connect(mapBodyStateToProps)
-export class Body extends Component {
-
-  render() {
-    const { bodyTags, finalState, isServer } = this.props;
-    const attaches = [];
-    if (isServer) {
-      attaches.push(<script dangerouslySetInnerHTML={{ __html: `window.__INITIAL_STATE__ = ${JSON.stringify(finalState)};` }} />);
-    }
-    if (process.env.NODE_ENV === 'production') {
-      attaches.push(<script src="/js/common.js" />);
-    }
-
-    return bodyTags.concat(attaches);
-  }
+function groupTags(tags, mapper = v => v) {
+  return Object.keys(tags)
+    .reduce((result, id) => {
+      const children = tags[id];
+      children.forEach((child, idx) => {
+        if (!result[child.type]) {
+          result[child.type] = '';
+        }
+        result[child.type] += `${mapper(child, id, idx)}\n`;
+      });
+      return result;
+    }, {
+      title: '',
+      meta: '',
+      link: '',
+      style: '',
+      base: '',
+      script: '',
+    });
 }
 
 @connect(({ tags }) => ({ tags }), { tagsSet: tagsSetAction, tagsDel })
 export class Helm extends Component {
 
-  static contextTypes = {
-    store: object,
-  };
-
   state = {
     id: GUID(),
   };
 
-  updateTags = ({ tags, children, tagsSet }, { id }) => {
-    const newTags = (Array.isArray(children) ? children : [children])
-      .map(({ type, props: { children, ...otherProps } }, idx) => React.createElement(
-          type,
-          {
-            key: `${id}_${idx}`,
-            ...otherProps,
-          },
-          children,
-        ));
-    tagsSet({ ...tags, [id]: newTags });
-  };
-
   componentWillMount() {
-    this.updateTags(this.props, this.state);
+    const { tags, children, tagsSet } = this.props;
+    const { id } = this.state;
+
+    const elements = (Array.isArray(children) ? children : [children])
+      .map(({ type, props: { children, ...otherProps } }, idx) => React.createElement(
+        type,
+        {
+          id: `${id}_${idx}`,
+          key: `${id}_${idx}`,
+          [`data-helm-id`]: id,
+          ...otherProps,
+        },
+        children,
+      ));
+    tagsSet({ ...tags, [id]: elements });
+
+    if (typeof document !== 'undefined') {
+      elements
+        .filter(tag => !document.getElementById(tag.props.id))
+        .forEach(tag => {
+          const element = document.createElement(tag.type);
+          switch (tag.type) {
+            case 'script':
+              document.body.appendChild(element);
+              break;
+            default:
+              document.head.appendChild(element);
+          }
+          element.outerHTML = renderToStaticMarkup(tag);
+        });
+    }
   }
 
   componentWillUnmount() {
     const { tagsDel } = this.props;
+    if (typeof document !== 'undefined') {
+      Array
+        .from(document.querySelectorAll(`[data-helm-id="${this.state.id}"]`))
+        .forEach(element => {
+          element.parentNode.removeChild(element);
+        });
+    }
     tagsDel(this.state.id);
   }
 
   render() {
     return null;
   }
+}
+
+export function renderStatic(store) {
+  const { tags } = store.getState();
+  return groupTags(tags, tag => renderToStaticMarkup(tag));
 }

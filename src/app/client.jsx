@@ -19,15 +19,3 @@ render(
   </BrowserRouter>,
   document.getElementById('app'),
 );
-render(
-  <Provider store={store}>
-    <Head />
-  </Provider>,
-  document.querySelector('head'),
-);
-render(
-  <Provider store={store}>
-    <Body />
-  </Provider>,
-  document.getElementById('scripts'),
-);

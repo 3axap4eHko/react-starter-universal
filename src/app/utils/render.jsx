@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
 
-import { Head, Body } from '../components/HTML';
+import { Head, Body, renderStatic } from '../components/HTML';
 import App from '../containers/App';
 import createStore from '../redux/createStore';
 import { appLoad } from '../redux/actions';
@@ -25,17 +25,7 @@ export default function render(req, res, state) {
         </StaticRouter>,
       );
 
-      const head = renderToString(
-        <Provider store={store}>
-          <Head />
-        </Provider>
-      );
-
-      const body = renderToString(
-        <Provider store={store}>
-          <Body isServer />
-        </Provider>
-      );
+      const helm = renderStatic(store);
 
       // context.url will contain the URL to redirect to if a <Redirect> was used
       if (context.url) {
@@ -46,10 +36,15 @@ export default function render(req, res, state) {
       } else {
         res.status(200).send(`<!DOCTYPE html>
 <html lang="en">
-<head>${head}</head>
+<head>
+${helm.title}
+${helm.meta}
+${helm.link}
+${helm.style}
+</head>
 <body>
 <div id="app" class="site-wrapper">${content}</div>
-<div id="scripts">${body}</div>
+${helm.script}
 </body>
 </html>
         `);
