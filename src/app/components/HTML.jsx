@@ -23,18 +23,16 @@ function getTags(tags, includeTags = []) {
 
 const HEAD_TAGS = ['title', 'meta', 'link', 'style'];
 
-function mapHeadStateToProps({ tags, }) {
-  return {
-    headTags: getTags(tags, HEAD_TAGS),
-  };
+function mapStateToProps({ tags, }) {
+  return { tags};
 }
 
-@connect(mapHeadStateToProps)
+@connect(mapStateToProps)
 export class Head extends Component {
 
   render() {
-    const { headTags } = this.props;
-    return headTags;
+    const { tags } = this.props;
+    return getTags();
   }
 }
 

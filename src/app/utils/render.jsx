@@ -9,10 +9,6 @@ import createStore from '../redux/createStore';
 import { appLoad } from '../redux/actions';
 import initialState from '../redux/states';
 
-function Root({ children }) {
-  return children;
-}
-
 export default function render(req, res, state) {
   const store = createStore({ ...initialState, ...state });
 
@@ -24,9 +20,7 @@ export default function render(req, res, state) {
       const content = renderToString(
         <StaticRouter location={req.url} context={context}>
           <Provider store={store}>
-            <Root>
-              <App />
-            </Root>
+            <App />
           </Provider>
         </StaticRouter>,
       );
