@@ -1,10 +1,15 @@
-import React, {Component} from 'react';
-import {func, object} from 'prop-types';
-import {renderToStaticMarkup} from 'react-dom/server';
-import {connect} from 'react-redux';
-import {GUID} from 'yyf/random';
-import {tagsDel} from '../redux/actions';
-import {NAMESPACE_TAGS, TAGS_SET, STATUS_SUCCESS} from '../redux/types';
+import React, { Component } from 'react';
+import { func, object } from 'prop-types';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { connect } from 'react-redux';
+import { tagsDel } from '../redux/actions';
+import { NAMESPACE_TAGS, TAGS_SET, STATUS_SUCCESS } from '../redux/types';
+
+let index = 0;
+
+function guid() {
+  return ++index;
+}
 
 function tagsSetAction(result) {
   return {
@@ -36,11 +41,11 @@ function groupTags(tags, mapper = v => v) {
     });
 }
 
-@connect(({ tags }) => ({ tags }), { tagsSet: tagsSetAction, tagsDel })
+@connect(({ tags, app }) => ({ tags, app }), { tagsSet: tagsSetAction, tagsDel })
 export class Helm extends Component {
 
   state = {
-    id: GUID(),
+    id: guid(),
   };
 
   componentWillMount() {
