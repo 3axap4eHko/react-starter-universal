@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helm } from '../components/HTML';
+import Helmet from 'react-helmet';
 
 function About() {
   return (
@@ -9,9 +9,9 @@ function About() {
       <p className="lead">
         <a href="https://github.com/3axap4eHko/react-starter-universal" className="btn btn-lg btn-default">Learn more</a>
       </p>
-      <Helm>
-        <title>About</title>
-      </Helm>
+      <Helmet
+        title="About Page"
+      />
     </div>
   );
 }

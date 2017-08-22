@@ -2,7 +2,6 @@ import React from 'react';
 import { hydrate as render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { Body, Head } from './components/HTML';
 import App from './containers/App';
 import createStore from './redux/createStore';
 
