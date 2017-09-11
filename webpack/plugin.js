@@ -12,21 +12,6 @@ WebpackPlugin.prototype.apply = function apply(compiler) {
       callback();
     });
   });
-
-  compiler.plugin('emit', (compilation, callback) => {
-    const chunks = compilation
-      .getStats()
-      .toJson()
-      .chunks
-      .filter(chunk => chunk.names[0] && ((typeof chunk.isInitial !== 'function' && chunk.initial) || chunk.isInitial()));
-    console.log(chunks.files);
-    callback();
-  });
-
-  compiler.plugin('compilation', function (compilation) {
-
-
-  });
 };
 
 module.exports = WebpackPlugin;

@@ -2,7 +2,6 @@ const Path = require('path');
 const { DefinePlugin } = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractPostCss = new ExtractTextPlugin('css/[name].css');
-const Html = require('html-webpack-plugin');
 const Copy = require('copy-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const WebpackPlugin = require('./plugin.js');

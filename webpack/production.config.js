@@ -2,7 +2,6 @@
 const Path = require('path');
 const { optimize, HashedModuleIdsPlugin } = require('webpack');
 const merge = require('webpack-merge');
-const AppCachePlugin = require('appcache-webpack-plugin');
 
 const baseConfigs = require('./base.config');
 
