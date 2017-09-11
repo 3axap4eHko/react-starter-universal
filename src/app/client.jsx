@@ -10,11 +10,16 @@ if (DEBUG) {
   window.store = store;
 }
 
-render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <App/>
-    </Provider>
-  </BrowserRouter>,
-  document.getElementById('app'),
-);
+export default function AppContainer() {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <App/>
+      </Provider>
+    </BrowserRouter>
+  );
+}
+
+if (!module.hot) {
+  render(<AppContainer />, document.getElementById('app'));
+}
