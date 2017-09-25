@@ -9,7 +9,7 @@ import { articleLoad } from '../redux/actions';
   contextTypes: {
     store: object,
   },
-  service: ({ match }, { store }) => {
+  service({ match }, { store }) {
     const { article } = store.getState();
 
     if (article.id !== match.params.article) {
