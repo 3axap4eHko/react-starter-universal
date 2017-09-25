@@ -1,6 +1,7 @@
+import 'isomorphic-fetch';
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
@@ -10,13 +11,17 @@ import './App.css';
 
 import Home from './Home';
 import About from './About';
+import Article from './Article';
 
 const App = ({ children }) => (
   <div className="site-wrapper-inner">
     <div className="cover-container">
       <Nav />
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/:article" component={Article} />
+      </Switch>
       <Footer />
       <Helmet
         htmlAttributes={{lang: "en", amp: undefined}} // amp takes no value

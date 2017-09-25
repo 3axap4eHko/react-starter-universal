@@ -5,17 +5,12 @@ import {
   STATUS_SUCCESS,
   STATUS_FAILURE,
   // Namespaces
-  NAMESPACE_APP,
-  NAMESPACE_TAGS,
+  NAMESPACE_ARTICLE,
   // Types
-  APP_LOAD,
-  TAGS_DEL,
-  TAGS_SET,
+  ARTICLE_LOAD,
 } from './../types';
 
-import appLoadAction from './app/load';
-import tagsDelAction from './tags/del';
-import tagsSetAction from './tags/set';
+import articleLoadAction from './article/load';
 
 function _createProcess(namespace, type, ...args) { // eslint-disable-line no-underscore-dangle
   return {
@@ -53,21 +48,9 @@ function _createAction(namespace, type, action) { // eslint-disable-line no-unde
 }
 
 
-export const appLoad = _createAction(
-  NAMESPACE_APP,
-  APP_LOAD,
-  appLoadAction,
-);
-
-export const tagsDel = _createAction(
-  NAMESPACE_TAGS,
-  TAGS_DEL,
-  tagsDelAction,
-);
-
-export const tagsSet = _createAction(
-  NAMESPACE_TAGS,
-  TAGS_SET,
-  tagsSetAction,
+export const articleLoad = _createAction(
+  NAMESPACE_ARTICLE,
+  ARTICLE_LOAD,
+  articleLoadAction,
 );
 

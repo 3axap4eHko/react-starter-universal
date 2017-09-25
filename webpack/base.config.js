@@ -67,7 +67,8 @@ module.exports = [
       define,
       ExtractPostCss,
       new Copy([
-        { from: './src/favicon.ico', to: './' }
+        { from: './src/favicon.ico', to: './' },
+        { from: './src/data', to: './data' }
       ]),
     ],
   },

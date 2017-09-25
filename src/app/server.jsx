@@ -4,6 +4,12 @@ import router from './routes';
 
 const serverDir = Path.dirname(process.argv[1]);
 process.chdir(serverDir);
+process.on('unhandledRejection', (reason, p) => {
+  console.error(reason);
+});
+process.on('rejectionHandled', (p) => {
+  console.error(p);
+});
 
 const serverPort = parseInt(process.argv[2], 10) || 9090;
 

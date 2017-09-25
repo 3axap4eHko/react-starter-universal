@@ -3,30 +3,31 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
 import Helmet from 'react-helmet';
+import { fetch } from 'react-service';
 import App from '../containers/App';
 import createStore from '../redux/createStore';
-import { appLoad } from '../redux/actions';
 import initialState from '../redux/states';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export default function render(req, res, state) {
+export default async function render(req, res, state) {
   const store = createStore({ ...initialState, ...state });
 
-  store
-    .dispatch(appLoad())
+  const context = {};
+
+  const app = (
+    <StaticRouter location={req.url} context={context}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StaticRouter>
+  );
+
+  fetch(app)
     .then(() => {
-      const context = {};
 
-      const content = renderToString(
-        <StaticRouter location={req.url} context={context}>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </StaticRouter>,
-      );
-
-      const helmet = Helmet.renderStatic(store);
+      const content = renderToString(app);
+      const helmet = Helmet.renderStatic();
 
       // context.url will contain the URL to redirect to if a <Redirect> was used
       if (context.url) {
@@ -56,14 +57,5 @@ ${isProd ? '<script src="/js/common.js"></script>' : ''}
 </body>
 </html>`);
       }
-    })
-    .catch((error) => {
-      console.error(error); // eslint-disable-line no-console
-      try {
-        res.writeHead(500);
-      } catch (e) {
-        // headers already sent
-      }
-      res.end();
     });
 }

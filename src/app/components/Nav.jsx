@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from './NavLink';
 
-function Nav() {
+export default function Nav() {
   return (
     <div className="masthead clearfix">
       <div className="inner">
@@ -10,11 +10,11 @@ function Nav() {
           <ul className="nav masthead-nav">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About</NavLink>
+            <NavLink to="/article1">The First Article</NavLink>
+            <NavLink to="/article2">The Second Article</NavLink>
           </ul>
         </nav>
       </div>
     </div>
   );
 }
-
-export default Nav;

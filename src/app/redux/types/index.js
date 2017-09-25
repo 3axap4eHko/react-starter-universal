@@ -6,14 +6,10 @@ export const STATUS_SUCCESS = 'STATUS_SUCCESS';
 export const STATUS_FAILURE = 'STATUS_FAILURE';
 
 // Generated Namespaces
-export const NAMESPACE_APP = 'app';
-export const NAMESPACE_TAGS = 'tags';
+export const NAMESPACE_ARTICLE = 'article';
 
 export const NAMESPACES = [
-  NAMESPACE_APP,
-  NAMESPACE_TAGS,
+  NAMESPACE_ARTICLE,
 ];
 // Generated Types
-export const APP_LOAD = 'APP_LOAD';
-export const TAGS_DEL = 'TAGS_DEL';
-export const TAGS_SET = 'TAGS_SET';
+export const ARTICLE_LOAD = 'ARTICLE_LOAD';
