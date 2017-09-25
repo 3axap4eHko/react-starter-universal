@@ -20,7 +20,11 @@ import { articleLoad } from '../redux/actions';
 export default class Article extends Component {
 
   static propTypes = {
-    article: object.isRequired,
+    article: object,
+  };
+
+  static defaultProps = {
+    article: {},
   };
 
   render() {

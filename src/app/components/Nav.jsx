@@ -9,9 +9,9 @@ export default function Nav() {
         <nav>
           <ul className="nav masthead-nav">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/about">About</NavLink>
             <NavLink to="/article1">The First Article</NavLink>
             <NavLink to="/article2">The Second Article</NavLink>
+            <NavLink to="/about">About</NavLink>
           </ul>
         </nav>
       </div>
