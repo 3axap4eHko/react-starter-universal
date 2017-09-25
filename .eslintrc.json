@@ -1,6 +1,7 @@
 {
   "extends": [
-    "airbnb"
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   "parser": "babel-eslint",
   "env": {
@@ -20,11 +21,9 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
-        "jsx": true
+      "jsx": true
     }
   },
   "rules": {
-    "import/prefer-default-export": 1,
-    "react/prefer-stateless-function": 1
   }
 }

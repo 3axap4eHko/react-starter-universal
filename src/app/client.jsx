@@ -10,7 +10,7 @@ if (DEBUG) {
   window.store = store;
 }
 
-export default function AppContainer() {
+function AppContainer() {
   return (
     <BrowserRouter>
       <Provider store={store}>
@@ -20,6 +20,4 @@ export default function AppContainer() {
   );
 }
 
-if (!module.hot) {
-  render(<AppContainer />, document.getElementById('app'));
-}
+render(<AppContainer />, document.getElementById('app'));

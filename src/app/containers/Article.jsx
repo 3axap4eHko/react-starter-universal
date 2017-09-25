@@ -18,6 +18,11 @@ import { articleLoad } from '../redux/actions';
 })
 @connect(({ article }) => ({ article }))
 export default class Article extends Component {
+
+  static propTypes = {
+    article: object.isRequired,
+  };
+
   render() {
     const { article } = this.props;
     return (
