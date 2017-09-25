@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { withService } from 'react-service';
+import Helmet from 'react-helmet';
 import { articleLoad } from '../redux/actions';
 
 @withService({
@@ -33,6 +34,9 @@ export default class Article extends Component {
       <div>
         <h1>{article.title}</h1>
         <div>{article.content}</div>
+        <Helmet
+          title={article.title}
+        />
       </div>
     );
   }

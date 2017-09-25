@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-function About() {
+export default function About() {
   return (
     <div className="inner cover">
       <h1 className="cover-heading">React Redux Starter Universal</h1>
@@ -15,5 +15,3 @@ function About() {
     </div>
   );
 }
-
-export default About;
