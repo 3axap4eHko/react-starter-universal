@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavLink snapshot match 1`] = `
+<li
+  className={null}
+>
+  <a
+    href="/test-url"
+    onClick={[Function]}
+  />
+</li>
+`;
