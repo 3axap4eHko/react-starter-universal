@@ -12,8 +12,7 @@ npm install
 ## Features
 
 - React v16 (Fiber)
-- React Router v4
-- Server Side Rendering with prefetching by `react-service` v3
+- React Steersman v4
 - Redux v3
 - Webpack v3
 - React Helmet

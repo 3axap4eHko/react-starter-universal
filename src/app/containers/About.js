@@ -15,8 +15,7 @@ const styles = theme => ({
 @withStyles(styles)
 export default class About extends Component {
   render() {
-    const { classes, direction, status } = this.props;
-    const transitionClass = `${direction}-${status}`;
+    const { classes, transitionClass } = this.props;
 
     return (
       <Content

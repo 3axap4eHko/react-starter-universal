@@ -5760,9 +5760,9 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react-steersman-transition@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-steersman-transition/-/react-steersman-transition-1.0.0.tgz#51111b9b3594c096aa5691174d4cfce1a20cf12b"
+react-steersman-transition@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-steersman-transition/-/react-steersman-transition-1.2.0.tgz#935af53ce17921f0f83d41626849c16edf9e1137"
   dependencies:
     prop-types "^15.6.0"
 
@@ -5770,13 +5770,13 @@ react-steersman-url@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-steersman-url/-/react-steersman-url-1.0.0.tgz#592f6cc03afccca77cfa1843832bebfda8a6597d"
 
-react-steersman@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-1.1.1.tgz#3b09fc2635911785485a4348aca497bfddc3fa21"
+react-steersman@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-1.2.0.tgz#bf136844e27a00b9dc403d62ebeebe3a616e93d0"
   dependencies:
     history "^4.7.2"
     prop-types "^15.6.0"
-    react-steersman-transition "^1.0.0"
+    react-steersman-transition "^1.2.0"
     react-steersman-url "^1.0.0"
 
 react-test-renderer@^16.0.0, react-test-renderer@^16.0.0-0:
