@@ -7,13 +7,13 @@ module.exports = [
   {
     devtool: 'source-map',
     entry: {
-      'server': Path.resolve(__dirname, '../src/app/server.jsx'),
+      'server': Path.resolve(__dirname, '../src/app/server.js'),
     },
   },
   {
     devtool: 'source-map',
     entry: {
-      'index': Path.resolve(__dirname, '../src/app/client.jsx'),
+      'index': Path.resolve(__dirname, '../src/app/client.js'),
     },
     plugins: [
       new NamedModulesPlugin(),

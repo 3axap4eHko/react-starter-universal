@@ -19,5 +19,6 @@ export default function (state = defaultState, action) {
       return { ...state, [namespace]: nextNamespaceState };
     }
   }
+
   return state;
 }

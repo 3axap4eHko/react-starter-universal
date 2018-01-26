@@ -1,7 +1,5 @@
 const Path = require('path');
 const { DefinePlugin } = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ExtractPostCss = new ExtractTextPlugin('css/[name].css');
 const Copy = require('copy-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const WebpackPlugin = require('./plugin.js');
@@ -46,7 +44,6 @@ module.exports = [
       rules: [
         { test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader', enforce: 'pre' },
         { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: { cacheDirectory: 'cache' } },
-        { test: /\.css$/, loader: ExtractPostCss.extract({ use: ['css-loader', 'postcss-loader'], publicPath: '/' }) },
         { test: /\.(svg|jpg|png|gif)$/, loader: 'file-loader', options: { name: 'images/[name].[ext]' } },
         {
           test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -63,12 +60,11 @@ module.exports = [
     plugins: [
       new WebpackPlugin({
         clean: ['build', 'cache'],
+        dumpAssets: `build/assets.json`,
       }),
       define,
-      ExtractPostCss,
       new Copy([
         { from: './src/favicon.ico', to: './' },
-        { from: './src/data', to: './data' }
       ]),
     ],
   },

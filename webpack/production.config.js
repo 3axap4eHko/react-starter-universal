@@ -8,7 +8,7 @@ const baseConfigs = require('./base.config');
 module.exports = [
   {
     entry: {
-      'server': Path.resolve(__dirname, '../src/app/server.jsx'),
+      'server': Path.resolve(__dirname, '../src/app/server.js'),
     },
     plugins: [
       new optimize.UglifyJsPlugin({
@@ -22,19 +22,18 @@ module.exports = [
   },
   {
     entry: {
-      'index': Path.resolve(__dirname, '../src/app/client.jsx'),
+      'index': Path.resolve(__dirname, '../src/app/client.js'),
       'common': [
         'prop-types',
+        'classnames',
         'react',
         'react-dom',
-        'react-router',
-        'react-router-dom',
+        'react-helmet',
+        'react-jss',
+        'react-steersman',
         'redux',
         'react-redux',
-        'react-helpful',
-        'react-intl',
         'redux-thunk',
-        'styled-components',
       ],
     },
     plugins: [
@@ -49,10 +48,6 @@ module.exports = [
         name: 'common'
       }),
       new HashedModuleIdsPlugin(),
-      new AppCachePlugin({
-        settings: ['prefer-offline'],
-        output: 'manifest.appcache',
-      }),
     ]
   },
 ].map((config, idx) => merge(baseConfigs[idx], config));

@@ -9,10 +9,9 @@
     "react"
   ],
   "plugins": [
+    "transform-decorators-legacy",
     "transform-object-rest-spread",
     "transform-class-properties",
-    "transform-decorators-legacy",
-    "transform-async-to-generator",
     ["transform-runtime", { "helpers": false, "polyfill": false }]
 
   ]
