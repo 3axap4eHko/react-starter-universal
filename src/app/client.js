@@ -13,16 +13,11 @@ if (DEBUG) {
   window.store = store;
 }
 
-const mapProps = ({ direction, status, ...props }) => ({
-  ...props,
-  transitionClass: `${direction}-${status}`,
-});
-
 function AppContainer() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Steersman history={createBrowserHistory()} transitionTimeout={1000} mapProps={mapProps}>
+        <Steersman history={createBrowserHistory()}>
           <App />
         </Steersman>
       </ThemeProvider>

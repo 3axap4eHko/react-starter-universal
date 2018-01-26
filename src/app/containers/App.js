@@ -1,6 +1,7 @@
 import 'isomorphic-fetch';
-import React, { Fragment } from 'react';
+import React from 'react';
 import withStyle from 'react-jss';
+import RouteContext from 'react-steersman/RouteContext';
 import Route from 'react-steersman/Route';
 import Helmet from 'react-helmet';
 import Nav from '../components/Nav';
@@ -33,9 +34,14 @@ const styles = theme => ({
   }
 });
 
+const mapProps = ({ direction, status, ...props }) => ({
+  ...props,
+  transitionClass: `${direction}-${status}`,
+});
+
 export default withStyle(styles)(function App({ classes }) {
   return (
-    <Fragment>
+    <RouteContext transitionTimeout={1000} mapProps={mapProps}>
       <Nav />
       <div className={classes.content}>
         <Route exact path="/" children={Home} />
@@ -52,6 +58,6 @@ export default withStyle(styles)(function App({ classes }) {
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         ]}
       />
-    </Fragment>
+    </RouteContext>
   );
 });

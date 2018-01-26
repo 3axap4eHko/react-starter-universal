@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(createLink(({ to, classes, title, navigate, match }) => (
+export const NavLink = createLink(({ to, classes, title, navigate, match }) => (
   <li className={classNames(classes.item, { [classes.activeItem]: match })}>
     <a
       href={to}
@@ -29,4 +29,6 @@ export default withStyles(styles)(createLink(({ to, classes, title, navigate, ma
       {title}
     </a>
   </li>
-)));
+));
+
+export default withStyles(styles)(NavLink);

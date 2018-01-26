@@ -2,11 +2,13 @@
 
 exports[`NavLink snapshot match 1`] = `
 <li
-  className={null}
+  className="item"
 >
   <a
+    className="link"
     href="/test-url"
     onClick={[Function]}
+    title={undefined}
   />
 </li>
 `;
