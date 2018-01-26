@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, arrayOf } from 'prop-types';
+import { string, object, arrayOf } from 'prop-types';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 import withStyles from 'react-jss';
@@ -55,14 +55,14 @@ const styles = theme => ({
   },
 });
 
-@withStyles(styles)
-export default class Content extends Component {
+export class Content extends Component {
   static propTypes = {
     title: string.isRequired,
     caption: string,
     description: string,
     tags: arrayOf(string),
     canonical: string,
+    classes: object,
   };
 
   static defaultProps = {
@@ -97,3 +97,5 @@ export default class Content extends Component {
     );
   }
 }
+
+export default withStyles(styles)(Content);
