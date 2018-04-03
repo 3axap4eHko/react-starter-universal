@@ -1,6 +1,6 @@
 
 const Path = require('path');
-const { optimize, HashedModuleIdsPlugin } = require('webpack');
+const { HashedModuleIdsPlugin } = require('webpack');
 const merge = require('webpack-merge');
 
 const baseConfigs = require('./base.config');
@@ -11,15 +11,6 @@ module.exports = [
     entry: {
       'server': Path.resolve(__dirname, '../src/app/server.js'),
     },
-    plugins: [
-      new optimize.UglifyJsPlugin({
-        sourceMap: false,
-        minimize: true,
-        compress: {
-          warnings: false,
-        },
-      }),
-    ],
   },
   {
     mode: 'production',
