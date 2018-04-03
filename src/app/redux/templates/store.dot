@@ -1,14 +1,15 @@
+{{=it.__info_header}}
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import createReducer from 'redux-base/createReducer';
-import defaultState from './states';
+import defaultState from './{{=it.relative(it.config.reduxPath, it.config.statesPath)}}';
 
 const loggerMiddleware = createLogger({
   collapsed: true,
   level: 'info',
-  stateTransformer() {
-    return {}; //{ series, seasons };
+  stateTransformer({ series, seasons }) {
+    return { series, seasons };
   },
   actionTransformer(action) {
     return { type: `${action.type}_${action.status || ''}` };
@@ -33,7 +34,7 @@ export default function create(initialState = defaultState) {
   };
 
   store.dispatchEach = async function dispatchEach(actions) {
-    for (const action of actions) {
+    for(const action of actions) {
       await store.dispatch(action());
     }
   };

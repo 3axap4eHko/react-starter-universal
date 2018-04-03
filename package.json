@@ -40,6 +40,7 @@
     "react-redux": "^5.0.6",
     "react-steersman": "^4.0.0-1",
     "redux": "^3.6.0",
+    "redux-base": "^3.3.2",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.1.0"
   },
@@ -59,6 +60,8 @@
     "babel-preset-env": "^1.4.0",
     "babel-preset-minify": "^0.2.0",
     "babel-preset-react": "^6.16.0",
+    "browser-sync": "^2.23.6",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "chai": "^4.1.2",
     "concurrently": "^3.1.0",
     "copy-webpack-plugin": "^4.0.1",

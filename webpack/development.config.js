@@ -19,6 +19,6 @@ module.exports = [
     },
     plugins: [
       new NamedModulesPlugin(),
-    ]
+    ],
   },
 ].map((config, idx) => merge(baseConfigs[idx], config));
