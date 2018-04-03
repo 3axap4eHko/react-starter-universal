@@ -7,6 +7,7 @@ const baseConfigs = require('./base.config');
 
 module.exports = [
   {
+    mode: 'production',
     entry: {
       'server': Path.resolve(__dirname, '../src/app/server.js'),
     },
@@ -21,32 +22,16 @@ module.exports = [
     ],
   },
   {
+    mode: 'production',
     entry: {
       'index': Path.resolve(__dirname, '../src/app/client.js'),
-      'common': [
-        'prop-types',
-        'classnames',
-        'react',
-        'react-dom',
-        'react-helmet',
-        'react-jss',
-        'react-steersman',
-        'redux',
-        'react-redux',
-        'redux-thunk',
-      ],
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
     },
     plugins: [
-      new optimize.UglifyJsPlugin({
-        sourceMap: false,
-        minimize: true,
-        compress: {
-          warnings: false,
-        },
-      }),
-      new optimize.CommonsChunkPlugin({
-        name: 'common'
-      }),
       new HashedModuleIdsPlugin(),
     ]
   },

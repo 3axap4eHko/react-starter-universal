@@ -5,12 +5,14 @@ const { NamedModulesPlugin } = require('webpack');
 
 module.exports = [
   {
+    mode: 'development',
     devtool: 'source-map',
     entry: {
       'server': Path.resolve(__dirname, '../src/app/server.js'),
     },
   },
   {
+    mode: 'development',
     devtool: 'source-map',
     entry: {
       'index': Path.resolve(__dirname, '../src/app/client.js'),

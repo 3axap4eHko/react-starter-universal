@@ -54,6 +54,11 @@ module.exports = [
 
       ],
     },
+    performance: {
+      hints: 'warning', // enum
+      maxAssetSize: 200000, // int (in bytes),
+      maxEntrypointSize: 400000, // int (in bytes)
+    },
     resolve: {
       extensions: ['.js', '.jsx'],
     },

@@ -34,7 +34,12 @@ export default async function render(req, res, state) {
       </JssProvider>
     </Provider>
   );
-  const content = renderToString(app);
+  let content = '';
+  try {
+    content = renderToString(app);
+  } catch (e) {
+    console.log(e);
+  }
 
   // context.url will contain the URL to redirect to if a <Redirect> was used
   if (context.url) {
