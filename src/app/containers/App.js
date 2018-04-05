@@ -12,8 +12,8 @@ import About from './About';
 const styles = theme => ({
   '@global': {
     'html, body, #app': {
-      backgroundColor: theme.palette.background,
-      color: theme.palette.text,
+      backgroundColor: theme.palette.default,
+      color: theme.palette.defaultText,
       margin: 0,
       display: 'flex',
       flexDirection: 'column',

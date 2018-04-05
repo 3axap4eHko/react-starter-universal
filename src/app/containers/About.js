@@ -8,7 +8,7 @@ const styles = theme => ({
     ...theme.shadows.elevation4,
   },
   link: {
-    color: theme.palette.text,
+    color: theme.palette.defaultText,
   }
 });
 

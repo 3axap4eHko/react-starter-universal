@@ -9,7 +9,7 @@ const styles = theme => ({
     height: 64,
   },
   link: {
-    color: theme.palette.text,
+    color: theme.palette.defaultText,
   }
 });
 

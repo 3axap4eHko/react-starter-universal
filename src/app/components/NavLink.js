@@ -3,26 +3,26 @@ import withStyles from 'react-jss';
 import classNames from 'classnames';
 import createLink from 'react-steersman/createLink';
 
-const styles = theme => ({
+const styles = ({ palette }) => ({
   item: {
     padding: 10,
   },
   activeItem: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: palette.defaultDark,
   },
   link: {
-    color: theme.palette.text,
+    color: palette.defaultText,
   },
   activeLink: {
-    color: theme.palette.accent,
+    color: palette.secondaryLight,
   },
 });
 
-export const NavLink = createLink(({ to, classes, title, navigate, match }) => (
-  <li className={classNames(classes.item, { [classes.activeItem]: match })}>
+export const NavLink = createLink(({ to, classes, title, navigate, active }) => (
+  <li className={classNames(classes.item, { [classes.activeItem]: active })}>
     <a
       href={to}
-      className={classNames(classes.link, { [classes.activeLink]: match })}
+      className={classNames(classes.link, { [classes.activeLink]: active })}
       title={title}
       onClick={navigate}
     >

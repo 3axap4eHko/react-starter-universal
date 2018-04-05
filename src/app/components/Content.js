@@ -20,7 +20,7 @@ const styles = theme => ({
   },
   caption: {
     textAlign: 'center',
-    color: theme.palette.primary,
+    color: theme.palette.primaryLight,
   },
   ['enter-start']: {
     position: 'absolute',
